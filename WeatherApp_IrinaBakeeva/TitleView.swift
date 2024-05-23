@@ -38,7 +38,7 @@ class TitleView: UIView {
             make.top.equalTo(24)
             
             addSubview(lableCityName)
-            lableCityName.text = "BUENOS ARIES"
+            lableCityName.text = "LOS ANGELES"
             lableCityName.textColor = .white
             lableCityName.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             
