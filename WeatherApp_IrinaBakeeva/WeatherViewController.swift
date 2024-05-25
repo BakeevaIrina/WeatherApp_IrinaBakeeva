@@ -31,6 +31,7 @@ class WeatherViewController: UIViewController {
         setupDayTemperatureView()
         setupDayTemperatureView()
         setupDayWeatherView()
+        setupMediumTempDayView()
 
     }
     
@@ -61,6 +62,7 @@ class WeatherViewController: UIViewController {
         containerView.addSubview(titleView)
 
         titleView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.centerX.equalToSuperview()
             make.width.equalTo(300)
             make.height.equalTo(250)
@@ -81,7 +83,7 @@ class WeatherViewController: UIViewController {
     
     private func setupDayTemperatureView() {
         
-        view.addSubview(dayTemperatureView)
+    view.addSubview(dayTemperatureView)
         dayTemperatureView.backgroundColor = UIColor(named: "bottomView")
         dayTemperatureView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
         dayTemperatureView.layer.borderWidth = 1
@@ -91,19 +93,32 @@ class WeatherViewController: UIViewController {
             make.top.equalTo(containerView.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(130)
+            make.height.equalTo(160)
         }
         
     }
     
-    private func setupDayWeatherView() {
-        view.addSubview(dayTemperatureView)
+    private func setupMediumTempDayView() {
         dayTemperatureView.addSubview(mediumTempDayView)
         
+        mediumTempDayView.setup(
+            MediumTempDayView.InputModel(minWeekTemp: 13,
+                                         maxWeekTemp: 25,
+                                         minDayTemp: 15,
+                                         maxDayTemp: 22,
+                                         currentTemp: 16)
+        )
+
         mediumTempDayView.snp.makeConstraints { make in
+            make.bottom.leading.equalToSuperview().inset(16)
+            make.width.equalTo(200)
             
         }
-        
+    }
+    
+    
+    private func setupDayWeatherView() {
+        view.addSubview(dayTemperatureView)
         
         dayTemperatureView.addSubview(currentWeatherView)
         
@@ -122,11 +137,14 @@ class WeatherViewController: UIViewController {
         ]
     )
         currentWeatherView.snp.makeConstraints { make in
-            make.top.equalTo(titleView.snp.bottom).offset(16)
-            make.bottom.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalTo(dayTemperatureView).offset(16)
+            make.leading.equalToSuperview().inset(16)
+            make.trailing.equalToSuperview().inset(16)
             make.height.equalTo(100)
         }
     }
+    
+ 
  
 }
 #Preview {

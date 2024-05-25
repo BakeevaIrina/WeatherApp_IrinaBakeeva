@@ -30,7 +30,7 @@ final class MediumTempDayView: UIView {
             make.height.equalTo(6)
         }
         setupMediumTempDayView()
-        
+        setupCurrentTempView()
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +43,7 @@ final class MediumTempDayView: UIView {
         let minOffSet = abs(model.minWeekTemp - model.minDayTemp) / weekTempDiff
         let maxOffSet = abs(model.maxWeekTemp - model.maxDayTemp) / weekTempDiff
         
-        mediumTempDayView.snp.makeConstraints { make in
+        mediumTempDayView.snp.remakeConstraints { make in
             make.trailing.equalToSuperview().multipliedBy(1 - maxOffSet)
             make.width.equalToSuperview().multipliedBy(1 - minOffSet - maxOffSet)
             make.height.equalToSuperview()
@@ -70,7 +70,7 @@ final class MediumTempDayView: UIView {
     private func setupMediumTempDayView() {
         addSubview(mediumTempDayView)
         
-        mediumTempDayView.backgroundColor = .darkYellow
+        mediumTempDayView.backgroundColor = UIColor(named: "darkYellow" )
         mediumTempDayView.layer.borderColor = UIColor(named: "darkBlue")?.withAlphaComponent(0.7).cgColor
         mediumTempDayView.layer.borderWidth = 1
         mediumTempDayView.layer.cornerRadius = 3
