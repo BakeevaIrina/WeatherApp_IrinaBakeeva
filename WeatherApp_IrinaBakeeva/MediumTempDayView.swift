@@ -70,7 +70,7 @@ final class MediumTempDayView: UIView {
     private func setupMediumTempDayView() {
         addSubview(mediumTempDayView)
         
-        mediumTempDayView.backgroundColor = UIColor(named: "darkYellow" )
+        mediumTempDayView.backgroundColor = .darkYellow
         mediumTempDayView.layer.borderColor = UIColor(named: "darkBlue")?.withAlphaComponent(0.7).cgColor
         mediumTempDayView.layer.borderWidth = 1
         mediumTempDayView.layer.cornerRadius = 3
