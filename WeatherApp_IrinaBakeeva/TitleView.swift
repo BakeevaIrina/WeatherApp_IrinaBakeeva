@@ -26,10 +26,18 @@ class TitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private enum Constants {
+            static let titleText = "Current place"
+            static let cityNameText = "LOS ANGELES"
+            static let tempText = "30°"
+            static let weatherText = "Clear sky"
+            static let maxMinText = "Max.: 31°, min.: 21°"
+        }
+    
     private func setupTitleView() {
         
         addSubview(labelPlace)
-        labelPlace.text = "Current place"
+        labelPlace.text = Constants.titleText
         labelPlace.textColor = .white
         labelPlace.font = UIFont.systemFont(ofSize: 40, weight: .semibold)
         
@@ -38,7 +46,7 @@ class TitleView: UIView {
             make.top.equalTo(24)
             
             addSubview(lableCityName)
-            lableCityName.text = "BUENOS ARIES"
+            lableCityName.text = Constants.cityNameText
             lableCityName.textColor = .white
             lableCityName.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             
@@ -48,7 +56,7 @@ class TitleView: UIView {
             }
             
             addSubview(currentTemp)
-            currentTemp.text = "30°"
+            currentTemp.text = Constants.tempText
             currentTemp.textColor = .white
             currentTemp.font = UIFont.systemFont(ofSize: 100, weight: .semibold)
             
@@ -58,7 +66,7 @@ class TitleView: UIView {
             }
             
             addSubview(labelWeather)
-            labelWeather.text = "Clear sky"
+            labelWeather.text = Constants.weatherText
             labelWeather.textColor = .white
             labelWeather.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             
@@ -68,7 +76,7 @@ class TitleView: UIView {
             }
             
             addSubview(labelMaxMin)
-            labelMaxMin.text = "Max.: 31°, min.: 21°"
+            labelMaxMin.text = Constants.maxMinText
             labelMaxMin.textColor = .white
             labelMaxMin.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
             
