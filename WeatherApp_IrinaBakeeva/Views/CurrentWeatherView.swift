@@ -49,7 +49,6 @@ final class CurrentWeatherView: UIView {
     private func setupScrollView() {
         addSubview(scrollView)
         scrollView.showsHorizontalScrollIndicator = false
-       // scrollView.backgroundColor = .white
         
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()

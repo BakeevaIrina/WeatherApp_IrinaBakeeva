@@ -21,6 +21,7 @@ class BottomView: UIView {
         backgroundColor = UIColor(named: "bottomView")
         
         setupBottomView()
+        setupButtonList()
     }
     
     required init?(coder: NSCoder) {
@@ -37,17 +38,6 @@ class BottomView: UIView {
             make.height.equalTo(70)
         }
         
-        bottomView.addSubview(buttonList)
-        buttonList.setImage(UIImage(systemName: "list.bullet"), for: .normal)
-        buttonList.tintColor = .white
-
-        
-        buttonList.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(5)
-            make.trailing.equalToSuperview().inset(20)
-            make.size.equalTo(40)
-        }
-        
         bottomView.addSubview(buttonMap)
         buttonMap.setImage(UIImage(systemName: "map"), for: .normal)
         buttonMap.tintColor = .white
@@ -59,4 +49,26 @@ class BottomView: UIView {
             make.size.equalTo(40)
         }
     }
+    
+    private func setupButtonList() {
+        bottomView.addSubview(buttonList)
+        buttonList.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        buttonList.tintColor = .white
+
+        
+        buttonList.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(5)
+            make.trailing.equalToSuperview().inset(20)
+            make.size.equalTo(40)
+        }
+        
+        buttonList.addTarget(self, action: #selector(onButtonList), for: .touchUpInside)
+    }
+    
+    @objc private func onButtonList() {
+        let navigationController = self.window?.rootViewController as! UINavigationController
+        let controller = CityWeatherViewController()
+        navigationController.pushViewController(controller, animated: true)
+    }
 }
+
