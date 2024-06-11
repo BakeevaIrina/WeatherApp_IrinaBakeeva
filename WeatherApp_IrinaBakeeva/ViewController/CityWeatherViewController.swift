@@ -21,13 +21,18 @@ final class CityWeatherViewController: UIViewController {
         setupTextField()
         setupPlaceView()
     }
+    private enum Constants {
+        static let titleText = "Weather"
+        static let textPlaceholder = " Search city or airport"
+    }
     
     private func setupTitleLabel() {
         view.addSubview(titleLabel)
         
-        titleLabel.text = "Weather"
+        titleLabel.text = Constants.titleText
         titleLabel.textColor = .white
-        titleLabel.font = UIFont(name: "Thonburi", size: 25)
+        titleLabel.font = UIFont.Thonburi.u25
+        
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
@@ -43,15 +48,15 @@ final class CityWeatherViewController: UIViewController {
         textField.layer.cornerRadius = 5
         textField.clipsToBounds = true
         let attributes: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: UIColor.systemGray, // Цвет текста
-                    .font: UIFont.italicSystemFont(ofSize: 20) // Шрифт
-                ]
-                let placeholder = NSAttributedString(string: " Search city or airport", attributes: attributes)
+            .foregroundColor: UIColor.systemGray, // Цвет текста
+            .font: UIFont.Italic.u20 // Шрифт
+        ]
+        let placeholder = NSAttributedString(string: Constants.textPlaceholder, attributes: attributes)
         textField.attributedPlaceholder = placeholder
-        textField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
+        textField.leftView = UIImageView(image: UIImage(systemSymbol: .magnifyingglass))
         textField.leftView?.tintColor = UIColor.systemGray
         textField.leftViewMode = .always
-        textField.rightView = UIImageView(image: UIImage(systemName: "list.bullet"))
+        textField.rightView = UIImageView(image: UIImage(systemSymbol: .listBullet))
         textField.rightView?.tintColor = UIColor.systemGray
         textField.rightViewMode = .always
         

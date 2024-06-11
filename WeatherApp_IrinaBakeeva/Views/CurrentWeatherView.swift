@@ -107,7 +107,7 @@ extension CurrentWeatherView {
         }
         private func setupHourLabel() {
             stackView.addArrangedSubview(hourLabel)
-            hourLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+            hourLabel.font = UIFont.SystemFont.u16
             hourLabel.textAlignment = .center
             hourLabel.textColor = .white
         }
@@ -119,7 +119,7 @@ extension CurrentWeatherView {
         
         private func setupTempLabel() {
             stackView.addArrangedSubview(tempLabel)
-            tempLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+            tempLabel.font = UIFont.SystemFont.u18
             tempLabel.textAlignment = .center
             tempLabel.textColor = .white
         }

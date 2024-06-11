@@ -29,10 +29,17 @@ final class PlaceView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    private enum Constants {
+        static let placeText = "Current place"
+        static let cityName = "Los Angeles"
+        static let weatherText = "Clear sky"
+        static let currentTemp = "30°"
+    }
+    
     private func setupPlaceView() {
         addSubview(placeView)
         
-        placeView.largeContentImage = UIImage(named: "sky")
+        placeView.largeContentImage = UIImage(asset: .backgroundView)
         placeView.backgroundColor = .systemGray3
         placeView.layer.cornerRadius = 10
         placeView.clipsToBounds = true
@@ -45,9 +52,9 @@ final class PlaceView: UIView{
         
         backgroundImage.addSubview(labelPlace)
         
-        labelPlace.text = "Current place"
+        labelPlace.text = Constants.placeText
         labelPlace.textColor = .white
-        labelPlace.font = UIFont(name: "Thonburi", size: 25)
+        labelPlace.font = UIFont.Thonburi.u25
         
         labelPlace.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
@@ -56,9 +63,9 @@ final class PlaceView: UIView{
         
         backgroundImage.addSubview(labelCity)
         
-        labelCity.text = "Los Angeles"
+        labelCity.text = Constants.cityName
         labelCity.textColor = .white
-        labelCity.font = UIFont(name: "Thonburi", size: 15)
+        labelCity.font = UIFont.Thonburi.u16
         
         labelCity.snp.makeConstraints { make in
             make.top.equalTo(labelPlace.snp.bottom).offset(5)
@@ -67,9 +74,9 @@ final class PlaceView: UIView{
         
         backgroundImage.addSubview(labelWeather)
         
-        labelWeather.text = "Clear sky"
+        labelWeather.text = Constants.weatherText
         labelWeather.textColor = .white
-        labelWeather.font = UIFont(name: "Thonburi", size: 15)
+        labelWeather.font = UIFont.Thonburi.u16
         
         labelWeather.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-10)
@@ -78,9 +85,9 @@ final class PlaceView: UIView{
         
         backgroundImage.addSubview(currentTemp)
         
-        currentTemp.text = "30°"
+        currentTemp.text = Constants.currentTemp
         currentTemp.textColor = .white
-        currentTemp.font = UIFont(name: "Thonburi", size: 50)
+        currentTemp.font = UIFont.Thonburi.u50
         
         currentTemp.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(5)
@@ -92,7 +99,7 @@ final class PlaceView: UIView{
     
     private func setupBackgroundImage() {
         placeView.addSubview(backgroundImage)
-        backgroundImage.image = UIImage(named: "sky")
+        backgroundImage.image = UIImage(asset: .backgroundView)
         backgroundImage.contentMode = .scaleToFill
         
         backgroundImage.snp.makeConstraints { make in

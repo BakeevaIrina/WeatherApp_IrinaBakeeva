@@ -24,14 +24,14 @@ final class ReportWeatherView: UIView {
     
     private let temperatures = [
         Temperature(day: "Today", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 15, maxDayTemp: 20, currentTemp: 17),
-        Temperature(day: "Sun", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 14, maxDayTemp: 22, currentTemp: 15),
+        Temperature(day: "Sun", icon: "cloud", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 14, maxDayTemp: 22, currentTemp: 15),
         Temperature(day: "Mon", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 14, maxDayTemp: 21, currentTemp: 18),
         Temperature(day: "Tue", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 21, currentTemp: 14),
         Temperature(day: "Wed", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 20, currentTemp: 20),
         Temperature(day: "Thu", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 21, currentTemp: 14),
         Temperature(day: "Fri", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 22, currentTemp: 21),
         Temperature(day: "Sat", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 14, maxDayTemp: 22, currentTemp: 16),
-        Temperature(day: "Sun", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 23, currentTemp: 15),
+        Temperature(day: "Sun", icon: "cloud", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 23, currentTemp: 15),
         Temperature(day: "Mon", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 14, maxDayTemp: 24, currentTemp: 15),
         Temperature(day: "Mon", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 14, maxDayTemp: 21, currentTemp: 15),
         Temperature(day: "Tue", icon: "sun.max", minTempWeek: 10, maxTempWeek: 30, minDayTemp: 13, maxDayTemp: 21, currentTemp: 15),
@@ -112,16 +112,17 @@ final class ReportWeatherView: UIView {
             
             dayLabel.text = day.day
             dayLabel.textColor = .white
-            dayLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            dayLabel.font = UIFont.SystemFont.u20
             
-            iconImage.image = UIImage(systemName: "sun.max.fill")
+//            MARK: как принимать разный icon?
+            iconImage.image = UIImage(systemSymbol: .sunMax)
             iconImage.tintColor = .darkYellow
             iconImage.contentMode = .scaleAspectFit
             
             minTempLabel.text = "\(Int(day.minDayTemp))"
             minTempLabel.textColor = .white
-            minTempLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-    
+            minTempLabel.font = UIFont.SystemFont.u20
+            
             mediumTemp.setup(
                 MediumTempDayView.InputModel(minWeekTemp: (day.minTempWeek),
                                              maxWeekTemp: day.maxTempWeek,
@@ -133,7 +134,7 @@ final class ReportWeatherView: UIView {
             
             maxTempLabel.text = "\(Int(day.maxDayTemp))"
             maxTempLabel.textColor = .white
-            maxTempLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            maxTempLabel.font = UIFont.SystemFont.u20
             
             topBorderView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         }

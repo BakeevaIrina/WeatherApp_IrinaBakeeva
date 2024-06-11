@@ -15,7 +15,7 @@ final class WeatherViewController: UIViewController {
     private let titleView = TitleView()
     private let bottomView = BottomView()
     private let topBorderView = UIView()
-
+    
     private let dayTemperatureView = UIView()
     private let mediumTempDayView = MediumTempDayView()
     private let currentWeatherView = CurrentWeatherView()
@@ -35,14 +35,14 @@ final class WeatherViewController: UIViewController {
         setupDayTemperatureView()
         setupDayWeatherView()
         setupReportWeatherView()
-//        setupMediumTempDayView()
-
+        //        setupMediumTempDayView()
+        
     }
     
     private func setupBackgroundImage() {
         
         view.addSubview(backgroundImage)
-        backgroundImage.image = UIImage(named: "sky")
+        backgroundImage.image = UIImage(asset: .backgroundView)
         backgroundImage.contentMode = .scaleAspectFill
         
         backgroundImage.snp.makeConstraints { make in
@@ -64,7 +64,7 @@ final class WeatherViewController: UIViewController {
     private func setupTitleView() {
         
         containerView.addSubview(titleView)
-
+        
         titleView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
             make.centerX.equalToSuperview()
@@ -72,7 +72,7 @@ final class WeatherViewController: UIViewController {
             make.height.equalTo(250)
         }
     }
-  
+    
     private func setupBottomView() {
         
         view.addSubview(bottomView)
@@ -98,7 +98,7 @@ final class WeatherViewController: UIViewController {
     
     private func setupDayTemperatureView() {
         
-    view.addSubview(dayTemperatureView)
+        view.addSubview(dayTemperatureView)
         dayTemperatureView.backgroundColor = UIColor(named: "bottomView")
         dayTemperatureView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
         dayTemperatureView.layer.borderWidth = 1
@@ -120,19 +120,19 @@ final class WeatherViewController: UIViewController {
         dayTemperatureView.addSubview(currentWeatherView)
         
         currentWeatherView.setup(
-        [
-            CurrentWeatherView.CurrentTemperature(labelTime: "Now", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "12AM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "1PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "2PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "3PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "4PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "5PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "6PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "7PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-            CurrentWeatherView.CurrentTemperature(labelTime: "8PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19)
-        ]
-    )
+            [
+                CurrentWeatherView.CurrentTemperature(labelTime: "Now", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "12AM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "1PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "2PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "3PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "4PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "5PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "6PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "7PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "8PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19)
+            ]
+        )
         currentWeatherView.snp.makeConstraints { make in
             make.top.equalTo(dayTemperatureView).offset(16)
             make.leading.equalToSuperview().inset(16)
@@ -158,7 +158,7 @@ final class WeatherViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom )
         }
     }
-
+    
 }
 #Preview {
     UINavigationController(rootViewController: WeatherViewController())

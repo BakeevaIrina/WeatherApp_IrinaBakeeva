@@ -39,7 +39,7 @@ class BottomView: UIView {
         }
         
         bottomView.addSubview(buttonMap)
-        buttonMap.setImage(UIImage(systemName: "map"), for: .normal)
+        buttonMap.setImage(UIImage(systemSymbol: .map), for: .normal)
         buttonMap.tintColor = .white
         
         
@@ -52,9 +52,9 @@ class BottomView: UIView {
     
     private func setupButtonList() {
         bottomView.addSubview(buttonList)
-        buttonList.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        buttonList.setImage(UIImage(systemSymbol: .listBullet), for: .normal)
         buttonList.tintColor = .white
-
+        
         
         buttonList.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)

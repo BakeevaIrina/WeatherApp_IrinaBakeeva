@@ -82,12 +82,12 @@ final class MediumTempDayView: UIView {
     }
     private func setupCurrentTempView() {
         addSubview(currentTempView)
-
+        
         currentTempView.backgroundColor = .white
         currentTempView.layer.borderColor = UIColor(named: "darkBlue")?.withAlphaComponent(0.7).cgColor
         currentTempView.layer.borderWidth = 1
         currentTempView.layer.cornerRadius = 3
-
+        
         currentTempView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.size.equalTo(snp.height)
