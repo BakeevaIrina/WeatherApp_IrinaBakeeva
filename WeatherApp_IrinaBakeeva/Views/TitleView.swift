@@ -27,19 +27,19 @@ class TitleView: UIView {
     }
     
     private enum Constants {
-            static let titleText = "Current place"
-            static let cityNameText = "LOS ANGELES"
-            static let tempText = "30°"
-            static let weatherText = "Clear sky"
-            static let maxMinText = "Max.: 31°, min.: 21°"
-        }
+        static let titleText = "Current place"
+        static let cityNameText = "LOS ANGELES"
+        static let tempText = "30°"
+        static let weatherText = "Clear sky"
+        static let maxMinText = "Max.: 31°, min.: 21°"
+    }
     
     private func setupTitleView() {
         
         addSubview(labelPlace)
         labelPlace.text = Constants.titleText
         labelPlace.textColor = .white
-        labelPlace.font = UIFont.systemFont(ofSize: 40, weight: .semibold)
+        labelPlace.font = UIFont.SystemFont.u40
         
         labelPlace.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -48,7 +48,7 @@ class TitleView: UIView {
             addSubview(lableCityName)
             lableCityName.text = Constants.cityNameText
             lableCityName.textColor = .white
-            lableCityName.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            lableCityName.font = UIFont.Thonburi.u16
             
             lableCityName.snp.makeConstraints { make in
                 make.centerX.equalTo(labelPlace)
@@ -58,7 +58,7 @@ class TitleView: UIView {
             addSubview(currentTemp)
             currentTemp.text = Constants.tempText
             currentTemp.textColor = .white
-            currentTemp.font = UIFont.systemFont(ofSize: 100, weight: .semibold)
+            currentTemp.font = UIFont.SystemFont.u100
             
             currentTemp.snp.makeConstraints { make in
                 make.leading.equalTo(80)
@@ -68,7 +68,7 @@ class TitleView: UIView {
             addSubview(labelWeather)
             labelWeather.text = Constants.weatherText
             labelWeather.textColor = .white
-            labelWeather.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            labelWeather.font = UIFont.SystemFont.u16
             
             labelWeather.snp.makeConstraints { make in
                 make.centerX.equalTo(lableCityName)
@@ -78,7 +78,7 @@ class TitleView: UIView {
             addSubview(labelMaxMin)
             labelMaxMin.text = Constants.maxMinText
             labelMaxMin.textColor = .white
-            labelMaxMin.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+            labelMaxMin.font = UIFont.SystemFont.u16
             
             labelMaxMin.snp.makeConstraints { make in
                 make.centerX.equalTo(labelWeather)

@@ -38,7 +38,7 @@ final class MediumTempDayView: UIView {
     }
     
     func setup(_ model: InputModel) {
-        let weekTempDiff = model.maxWeekTemp - model.minWeekTemp
+        let weekTempDiff = model.maxWeekTemp - model.minWeekTemp //30 - 10 = 20
         //        Рассчитывается относительное смещение для минимальной/ дневной температуры относительно минимальной недельной температуры.
         let minOffSet = abs(model.minWeekTemp - model.minDayTemp) / weekTempDiff
         let maxOffSet = abs(model.maxWeekTemp - model.maxDayTemp) / weekTempDiff
@@ -51,7 +51,7 @@ final class MediumTempDayView: UIView {
         //        Проверяется, существует ли текущая температура в модели.
         if let currentTemp = model.currentTemp {
             //            Рассчитывается относительное смещение для текущей температуры относительно минимальной недельной температуры.
-            let currentTempOffSet = abs(model.maxWeekTemp - currentTemp) / weekTempDiff
+            let currentTempOffSet = abs(model.minWeekTemp - currentTemp) / weekTempDiff
             
             if currentTempOffSet == 0 {
                 currentTempView.snp.remakeConstraints { make in
@@ -82,12 +82,12 @@ final class MediumTempDayView: UIView {
     }
     private func setupCurrentTempView() {
         addSubview(currentTempView)
-
+        
         currentTempView.backgroundColor = .white
         currentTempView.layer.borderColor = UIColor(named: "darkBlue")?.withAlphaComponent(0.7).cgColor
         currentTempView.layer.borderWidth = 1
         currentTempView.layer.cornerRadius = 3
-
+        
         currentTempView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.size.equalTo(snp.height)
