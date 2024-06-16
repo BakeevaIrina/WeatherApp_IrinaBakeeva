@@ -13,7 +13,7 @@ class BottomView: UIView {
     private let buttonList = UIButton()
     private let buttonMap = UIButton()
     
-    var action: (() -> Void)?
+    var buttonAction: (() -> Void)?
     
     override init (frame: CGRect) {
         super.init(frame: frame)
@@ -55,20 +55,23 @@ class BottomView: UIView {
         buttonList.setImage(UIImage(systemSymbol: .listBullet), for: .normal)
         buttonList.tintColor = .white
         
-        
         buttonList.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(5)
             make.trailing.equalToSuperview().inset(20)
             make.size.equalTo(40)
         }
         
-        buttonList.addTarget(self, action: #selector(onButtonList), for: .touchUpInside)
+//        buttonList.addTarget(self, action: #selector(onButtonList), for: .touchUpInside)
+        buttonList.addAction(UIAction{ _ in
+            self.buttonAction?()
+        }, for: .touchUpInside)
     }
     
-    @objc private func onButtonList() {
-        let navigationController = self.window?.rootViewController as! UINavigationController
-        let controller = CityWeatherViewController()
-        navigationController.pushViewController(controller, animated: true)
-    }
+//    @objc private func onButtonList(sender: UIButton!) {
+//        let navigationController = self.window?.rootViewController as! UINavigationController
+//        let controller = CityWeatherViewController()
+//        navigationController.pushViewController(controller, animated: true)
+//    
+//    }
 }
 

@@ -12,6 +12,8 @@ final class CityWeatherViewController: UIViewController {
     private let titleLabel = UILabel()
     private let textField = UISearchTextField()
     private let placeView = PlaceView()
+    private let unitSelectionView = UnitSelectionView()
+    private let showHideButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +22,8 @@ final class CityWeatherViewController: UIViewController {
         setupTitleLabel()
         setupTextField()
         setupPlaceView()
+        setupUnitSelectionView()
+        setupShowHideButton()
     }
     private enum Constants {
         static let titleText = "Weather"
@@ -77,10 +81,44 @@ final class CityWeatherViewController: UIViewController {
         }
         
     }
+    
+    private func setupUnitSelectionView() {
+        view.addSubview(unitSelectionView)
+        
+        unitSelectionView.backgroundColor = .darkBlue
+        unitSelectionView.isHidden = true
+        
+        unitSelectionView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.size.equalTo(100)
+        }
+    }
+    
+    private func setupShowHideButton() {
+        view.addSubview(showHideButton)
+        
+        showHideButton.backgroundColor = .systemBlue
+        showHideButton.layer.cornerRadius = 5
+        showHideButton.setTitle("Show UnitSelectionView", for: .normal)
+        
+        
+        
+        showHideButton.snp.makeConstraints { make in
+            make.top.equalTo(unitSelectionView.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+        }
+        
+        showHideButton.addAction(UIAction { [weak self] _ in
+            guard let self else { return }
+            
+            unitSelectionView.isHidden.toggle()
+            
+            let buttonTitle = unitSelectionView.isHidden ? "Show UnitSelection" : "Hide UnitSelection"
+            showHideButton.setTitle(buttonTitle, for: .normal)
+        }, for: .touchUpInside)
+    }
 }
-
-
-
 
 #Preview {
     CityWeatherViewController()

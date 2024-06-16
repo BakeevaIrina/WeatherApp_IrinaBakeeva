@@ -19,17 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let window = UIWindow (windowScene: windowScene)
-        window.rootViewController = UINavigationController(
-            rootViewController: WeatherViewController()
-        )
-        window .makeKeyAndVisible()
-        self.window = window
+//        let window = UIWindow (windowScene: windowScene)
+//        window.rootViewController = UINavigationController(
+//            rootViewController: WeatherViewController()
+//        )
+//        window .makeKeyAndVisible()
+//        self.window = window
         
-//        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-//        window?.windowScene = windowScene
-//        window?.rootViewController = CityWeatherViewController()
-//        window?.makeKeyAndVisible()
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = WeatherViewController()
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
