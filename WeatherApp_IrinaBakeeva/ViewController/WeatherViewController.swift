@@ -74,10 +74,13 @@ final class WeatherViewController: UIViewController {
     }
     
     private func setupBottomView() {
-        
         view.addSubview(bottomView)
+        
         bottomView.backgroundColor = UIColor(named: "bottomView")
         view.bringSubviewToFront(bottomView)
+        bottomView.buttonAction = { [weak self] in
+            self?.present(CityWeatherViewController(), animated: true)
+        }
         
         bottomView.snp.makeConstraints { make in
             make.horizontalEdges.bottom.equalToSuperview()
