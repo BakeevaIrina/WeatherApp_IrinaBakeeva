@@ -14,6 +14,7 @@ final class CityWeatherViewController: UIViewController {
     private let placeView = PlaceView()
     private let unitSelectionView = UnitSelectionView()
     private let showHideButton = UIButton()
+    private let showInfoButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ final class CityWeatherViewController: UIViewController {
         setupPlaceView()
         setupUnitSelectionView()
         setupShowHideButton()
+        setupShowInfoButton()
     }
     private enum Constants {
         static let titleText = "Weather"
@@ -85,7 +87,7 @@ final class CityWeatherViewController: UIViewController {
     private func setupUnitSelectionView() {
         view.addSubview(unitSelectionView)
         
-        unitSelectionView.backgroundColor = .darkBlue
+        unitSelectionView.backgroundColor = .gray
         unitSelectionView.isHidden = true
         
         unitSelectionView.snp.makeConstraints { make in
@@ -116,6 +118,32 @@ final class CityWeatherViewController: UIViewController {
             
             let buttonTitle = unitSelectionView.isHidden ? "Show UnitSelection" : "Hide UnitSelection"
             showHideButton.setTitle(buttonTitle, for: .normal)
+        }, for: .touchUpInside)
+    }
+    
+    private func setupShowInfoButton() {
+        view.addSubview(showInfoButton)
+        
+        showInfoButton.backgroundColor = .systemBlue
+        showInfoButton.layer.cornerRadius = 5
+        showInfoButton.setTitle("Show Info", for: .normal)
+        
+        showInfoButton.snp.makeConstraints { make in
+            make.top.equalTo(showHideButton.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+        }
+        showInfoButton.addAction(UIAction { _ in
+//        Переход по  ссылке в интернет со снятием опционала
+            if let url = URL(string: "https://meteoinfo.ru/t-scale") {
+   
+                let webViewController = WebViewController()
+                webViewController.open(url)
+                self.present(webViewController, animated: true)
+
+            } else {
+                print("Invalid URL")
+            }
         }, for: .touchUpInside)
     }
 }
