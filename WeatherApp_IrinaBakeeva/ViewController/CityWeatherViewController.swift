@@ -135,15 +135,10 @@ final class CityWeatherViewController: UIViewController {
         }
         showInfoButton.addAction(UIAction { _ in
 //        Переход по  ссылке в интернет со снятием опционала
-            if let url = URL(string: "https://meteoinfo.ru/t-scale") {
-   
+            guard let url = URL(string: "https://meteoinfo.ru/t-scale") else { return }
                 let webViewController = WebViewController()
                 webViewController.open(url)
                 self.present(webViewController, animated: true)
-
-            } else {
-                print("Invalid URL")
-            }
         }, for: .touchUpInside)
     }
 }
