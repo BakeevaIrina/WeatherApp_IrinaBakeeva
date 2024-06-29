@@ -29,4 +29,6 @@ enum SFSymbolIdentifier: String {
     case magnifyingglass = "magnifyingglass"
     case listBullet = "list.bullet"
     case map = "map"
+    case cloudSunFill = "cloud.sun.fill" 
+    case closeButton = "xmark.circle.fill"
 }
