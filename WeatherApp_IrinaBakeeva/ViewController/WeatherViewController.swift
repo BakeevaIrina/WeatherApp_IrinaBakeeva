@@ -22,6 +22,10 @@ final class WeatherViewController: UIViewController {
     private let currentWeatherView = CurrentWeatherView()
     private let reportWeatherView = ReportWeatherView()
     
+    private enum Constants {
+        static let buttonShowTitle = "Show details"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -150,7 +154,7 @@ final class WeatherViewController: UIViewController {
     private func setupButtonShowDetails() {
         view.addSubview(buttonShowDetails)
         
-        buttonShowDetails.setTitle("Show details", for: .normal)
+        buttonShowDetails.setTitle(Constants.buttonShowTitle, for: .normal)
         buttonShowDetails.backgroundColor = .darkBlue
         buttonShowDetails.layer.cornerRadius = 5
         buttonShowDetails.addAction(UIAction { _ in

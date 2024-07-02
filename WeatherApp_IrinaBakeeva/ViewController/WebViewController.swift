@@ -43,7 +43,7 @@ final class WebViewController: UIViewController {
     private func setupCloseButton() {
     
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "xmark.circle.fill")?.withTintColor(.gray, renderingMode: .alwaysOriginal),
+            image: UIImage(systemSymbol: .closeButton)?.withTintColor(.gray, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(closeAction))

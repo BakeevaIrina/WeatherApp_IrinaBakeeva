@@ -11,6 +11,9 @@ import SafariServices
 import WebKit
 
 final class DetailedWeatherViewController: BaseViewController {
+    private enum Constants {
+        static let titleBarText = "Weather condition"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +25,7 @@ final class DetailedWeatherViewController: BaseViewController {
         
         let iconView = UIImageView(image: UIImage(systemSymbol: .cloudSunFill)?.withTintColor(.white, renderingMode: .alwaysOriginal))
         let label = UILabel()
-        label.text = "Weather condition"
+        label.text = Constants.titleBarText
         label.textColor = .white
         
         let titleStackView = UIStackView(arrangedSubviews: [iconView, label])

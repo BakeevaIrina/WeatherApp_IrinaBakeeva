@@ -31,4 +31,5 @@ enum SFSymbolIdentifier: String {
     case map = "map"
     case cloudSunFill = "cloud.sun.fill" 
     case closeButton = "xmark.circle.fill"
+    case ellipsisCircle = "ellipsis.circle"
 }
