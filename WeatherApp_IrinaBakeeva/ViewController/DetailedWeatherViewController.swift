@@ -23,7 +23,10 @@ final class DetailedWeatherViewController: BaseViewController {
         setupCloseButton()
     
         
-        let iconView = UIImageView(image: UIImage(systemSymbol: .cloudSunFill)?.withTintColor(.white, renderingMode: .alwaysOriginal))
+        let iconView = UIImageView(
+            image: UIImage(systemSymbol: .cloudSunFill)?
+                .withTintColor(.white, renderingMode: .alwaysOriginal)
+        )
         let label = UILabel()
         label.text = Constants.titleBarText
         label.textColor = .white

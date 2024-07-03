@@ -11,6 +11,13 @@ import SafariServices
 import WebKit
 
 final class CityWeatherViewController: UIViewController {
+    private enum Constants {
+        static let titleText = "Weather"
+        static let textPlaceholder = " Search city or airport"
+        static let titleInfo = "Show Info"
+        static let link = "https://meteoinfo.ru/t-scale"
+    }
+    
     private let titleLabel = UILabel()
     private let textField = UISearchTextField()
     private let placeView = PlaceView()
@@ -19,12 +26,6 @@ final class CityWeatherViewController: UIViewController {
     private let showInfoButton = UIButton()
     private let searchResultsController = SearchResultViewController()
     
-    private enum Constants {
-        static let titleText = "Weather"
-        static let textPlaceholder = " Search city or airport"
-        static let titleInfo = "Show Info"
-        static let link = "https://meteoinfo.ru/t-scale"
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundCity
