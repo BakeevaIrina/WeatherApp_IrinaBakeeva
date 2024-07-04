@@ -81,7 +81,7 @@ final class WeatherViewController: UIViewController {
     private func setupBottomView() {
         view.addSubview(bottomView)
         
-        bottomView.backgroundColor = UIColor(named: "bottomView")
+        bottomView.backgroundColor = .bottomView
         view.bringSubviewToFront(bottomView)
         bottomView.buttonAction = { [weak self] in
             let cityWeatherViewController = CityWeatherViewController()
