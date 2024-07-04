@@ -131,9 +131,10 @@ extension SearchResultViewController: UISearchResultsUpdating {
 
 extension CityWeatherViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        
     }
     
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        
     }
 }
