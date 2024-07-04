@@ -10,6 +10,10 @@ import SnapKit
 import WebKit
 
 final class WebViewController: UIViewController {
+    private enum Constants {
+        static let title = "Info"
+    }
+    
     private let webViewWeather = WKWebView()
     private let label = UILabel()
     
@@ -29,9 +33,7 @@ final class WebViewController: UIViewController {
         }
     }
     
-    private enum Constants {
-        static let title = "Info"
-    }
+    
     func open(_ url: URL) {
         webViewWeather.load(URLRequest(url: url))
     }
