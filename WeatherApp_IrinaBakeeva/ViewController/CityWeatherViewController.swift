@@ -7,78 +7,81 @@
 
 import UIKit
 import SnapKit
+import SafariServices
+import WebKit
 
 final class CityWeatherViewController: UIViewController {
+    private enum Constants {
+        static let titleText = "Weather"
+        static let textPlaceholder = " Search city or airport"
+        static let titleInfo = "Show Info"
+        static let link = "https://meteoinfo.ru/t-scale"
+    }
+    
     private let titleLabel = UILabel()
     private let textField = UISearchTextField()
     private let placeView = PlaceView()
     private let unitSelectionView = UnitSelectionView()
     private let showHideButton = UIButton()
     private let showInfoButton = UIButton()
+    private let searchResultsController = SearchResultViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundCity
-        
-        setupTitleLabel()
-        setupTextField()
+    
+        setupNavigationBar()
         setupPlaceView()
         setupUnitSelectionView()
-        setupShowHideButton()
         setupShowInfoButton()
-    }
-    private enum Constants {
-        static let titleText = "Weather"
-        static let textPlaceholder = " Search city or airport"
+        setupSearchController()
+        
     }
     
-    private func setupTitleLabel() {
-        view.addSubview(titleLabel)
+    private func setupNavigationBar() {
+        title = Constants.titleText
         
-        titleLabel.text = Constants.titleText
-        titleLabel.textColor = .white
-        titleLabel.font = UIFont.Thonburi.u25
+        let navigationBar = navigationController?.navigationBar
+        navigationBar?.prefersLargeTitles = true
+        navigationBar?.largeTitleTextAttributes = [.foregroundColor:UIColor.white]
+        navigationBar?.barStyle = .black
+        navigationBar?.tintColor = .white
         
-        
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(24)
-            make.leading.equalToSuperview().inset(16)
-            
-        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemSymbol: .ellipsisCircle),
+            style: .plain,
+            target: self, 
+            action: #selector(onBarButtonTap))
     }
     
-    private func setupTextField() {
-        view.addSubview(textField)
+    @IBAction private func onBarButtonTap() {
+        unitSelectionView.isHidden.toggle()
+    }
+    
+    private func setupSearchController() {
+        let searchResultsController = SearchResultViewController()
+        let searchController = UISearchController(searchResultsController: searchResultsController)
+        searchController.searchResultsUpdater = searchResultsController
+        searchController.showsSearchResultsController = true
+        navigationItem.searchController = searchController
+        searchController.searchBar.delegate = self
+        searchController.hidesNavigationBarDuringPresentation = false
         
-        textField.backgroundColor = .searchTextField
-        textField.layer.cornerRadius = 5
-        textField.clipsToBounds = true
-        let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.systemGray, // Цвет текста
-            .font: UIFont.Italic.u20 // Шрифт
-        ]
-        let placeholder = NSAttributedString(string: Constants.textPlaceholder, attributes: attributes)
-        textField.attributedPlaceholder = placeholder
-        textField.leftView = UIImageView(image: UIImage(systemSymbol: .magnifyingglass))
-        textField.leftView?.tintColor = UIColor.systemGray
-        textField.leftViewMode = .always
-        textField.rightView = UIImageView(image: UIImage(systemSymbol: .listBullet))
-        textField.rightView?.tintColor = UIColor.systemGray
-        textField.rightViewMode = .always
+        navigationItem.hidesSearchBarWhenScrolling = false
         
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).inset(-5)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(50)
-        }
+        let searchTextField = navigationItem.searchController?.searchBar.searchTextField
+        searchTextField?.placeholder = Constants.textPlaceholder
+        searchTextField?.tintColor = .red
         
+        searchController.searchBar.setImage(UIImage(systemSymbol: .listBullet), for: .bookmark, state: .normal)
+        searchController.searchBar.showsBookmarkButton = true
     }
     
     private func setupPlaceView() {
         view.addSubview(placeView)
         
         placeView.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.horizontalEdges.equalToSuperview()
         }
         
@@ -96,53 +99,42 @@ final class CityWeatherViewController: UIViewController {
         }
     }
     
-    private func setupShowHideButton() {
-        view.addSubview(showHideButton)
-        
-        showHideButton.backgroundColor = .systemBlue
-        showHideButton.layer.cornerRadius = 5
-        showHideButton.setTitle("Show UnitSelectionView", for: .normal)
-        
-        
-        
-        showHideButton.snp.makeConstraints { make in
-            make.top.equalTo(unitSelectionView.snp.bottom).offset(16)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(50)
-        }
-        
-        showHideButton.addAction(UIAction { [weak self] _ in
-            guard let self else { return }
-            
-            unitSelectionView.isHidden.toggle()
-            
-            let buttonTitle = unitSelectionView.isHidden ? "Show UnitSelection" : "Hide UnitSelection"
-            showHideButton.setTitle(buttonTitle, for: .normal)
-        }, for: .touchUpInside)
-    }
-    
     private func setupShowInfoButton() {
         view.addSubview(showInfoButton)
         
         showInfoButton.backgroundColor = .systemBlue
         showInfoButton.layer.cornerRadius = 5
-        showInfoButton.setTitle("Show Info", for: .normal)
+        showInfoButton.setTitle(Constants.titleInfo, for: .normal)
         
         showInfoButton.snp.makeConstraints { make in
-            make.top.equalTo(showHideButton.snp.bottom).offset(16)
+            make.top.equalTo(unitSelectionView.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(16)
             make.height.equalTo(50)
         }
         showInfoButton.addAction(UIAction { _ in
-//        Переход по  ссылке в интернет со снятием опционала
-            guard let url = URL(string: "https://meteoinfo.ru/t-scale") else { return }
+            guard let url = URL(string: Constants.link) else { return }
                 let webViewController = WebViewController()
+            let navigationController = UINavigationController(rootViewController: webViewController)
                 webViewController.open(url)
-                self.present(webViewController, animated: true)
+                self.present(navigationController, animated: true)
         }, for: .touchUpInside)
     }
 }
 
-#Preview {
-    CityWeatherViewController()
+extension SearchResultViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.searchTextField.text else { return }
+        
+        view.backgroundColor = .black.withAlphaComponent(text.isEmpty ? 0.7 : 1)
+    }
+}
+
+extension CityWeatherViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
 }

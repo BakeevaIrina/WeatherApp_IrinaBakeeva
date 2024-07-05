@@ -9,12 +9,16 @@ import UIKit
 import SnapKit
 
 final class WeatherViewController: UIViewController {
+    private enum Constants {
+        static let buttonShowTitle = "Show details"
+    }
     
     private let backgroundImage = UIImageView()
     private let containerView = UIView()
     private let titleView = TitleView()
     private let bottomView = BottomView()
     private let topBorderView = UIView()
+    private let buttonShowDetails = UIButton()
     
     private let dayTemperatureView = UIView()
     private let mediumTempDayView = MediumTempDayView()
@@ -34,8 +38,8 @@ final class WeatherViewController: UIViewController {
         setupDayTemperatureView()
         setupDayTemperatureView()
         setupDayWeatherView()
-        setupReportWeatherView()
-        //        setupMediumTempDayView()
+//        setupReportWeatherView()
+        setupButtonShowDetails()
         
     }
     
@@ -76,10 +80,12 @@ final class WeatherViewController: UIViewController {
     private func setupBottomView() {
         view.addSubview(bottomView)
         
-        bottomView.backgroundColor = UIColor(named: "bottomView")
+        bottomView.backgroundColor = .bottomView
         view.bringSubviewToFront(bottomView)
         bottomView.buttonAction = { [weak self] in
-            self?.present(CityWeatherViewController(), animated: true)
+            let cityWeatherViewController = CityWeatherViewController()
+            let navigationController = UINavigationController(rootViewController: cityWeatherViewController)
+            self?.present(navigationController, animated: true)
         }
         
         bottomView.snp.makeConstraints { make in
@@ -102,7 +108,7 @@ final class WeatherViewController: UIViewController {
     private func setupDayTemperatureView() {
         
         view.addSubview(dayTemperatureView)
-        dayTemperatureView.backgroundColor = UIColor(named: "bottomView")
+        dayTemperatureView.backgroundColor = .bottomView
         dayTemperatureView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
         dayTemperatureView.layer.borderWidth = 1
         dayTemperatureView.layer.cornerRadius = 15
@@ -125,7 +131,7 @@ final class WeatherViewController: UIViewController {
         currentWeatherView.setup(
             [
                 CurrentWeatherView.CurrentTemperature(labelTime: "Now", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
-                CurrentWeatherView.CurrentTemperature(labelTime: "12AM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
+                CurrentWeatherView.CurrentTemperature(labelTime: "12AM", iconImage: UIImage(systemName: "cloud.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
                 CurrentWeatherView.CurrentTemperature(labelTime: "1PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
                 CurrentWeatherView.CurrentTemperature(labelTime: "2PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
                 CurrentWeatherView.CurrentTemperature(labelTime: "3PM", iconImage: UIImage(systemName: "sun.max.fill")?.withRenderingMode(.alwaysOriginal), labelTemperature:19),
@@ -144,6 +150,26 @@ final class WeatherViewController: UIViewController {
         }
     }
     
+    private func setupButtonShowDetails() {
+        view.addSubview(buttonShowDetails)
+        
+        buttonShowDetails.setTitle(Constants.buttonShowTitle, for: .normal)
+        buttonShowDetails.backgroundColor = .darkBlue
+        buttonShowDetails.layer.cornerRadius = 5
+        buttonShowDetails.addAction(UIAction { _ in
+            let detailedWeatherViewController = DetailedWeatherViewController()
+            let navigationContriller = UINavigationController(rootViewController: detailedWeatherViewController)
+            self.present(navigationContriller, animated: true)
+        }, for: .touchUpInside)
+        
+        
+        buttonShowDetails.snp.makeConstraints { make in
+            make.top.equalTo(currentWeatherView.snp.bottom).offset(16)
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.height.equalTo(50)
+        }
+    }
+  /*
     private func setupReportWeatherView() {
         
         view.addSubview(reportWeatherView)
@@ -161,7 +187,7 @@ final class WeatherViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom )
         }
     }
-    
+    */
 }
 #Preview {
     UINavigationController(rootViewController: WeatherViewController())
