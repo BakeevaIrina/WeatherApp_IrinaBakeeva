@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 final class WeatherViewController: UIViewController {
+    private enum Constants {
+        static let buttonShowTitle = "Show details"
+    }
     
     private let backgroundImage = UIImageView()
     private let containerView = UIView()
@@ -21,10 +24,6 @@ final class WeatherViewController: UIViewController {
     private let mediumTempDayView = MediumTempDayView()
     private let currentWeatherView = CurrentWeatherView()
     private let reportWeatherView = ReportWeatherView()
-    
-    private enum Constants {
-        static let buttonShowTitle = "Show details"
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +108,7 @@ final class WeatherViewController: UIViewController {
     private func setupDayTemperatureView() {
         
         view.addSubview(dayTemperatureView)
-        dayTemperatureView.backgroundColor = UIColor(named: "bottomView")
+        dayTemperatureView.backgroundColor = .bottomView
         dayTemperatureView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
         dayTemperatureView.layer.borderWidth = 1
         dayTemperatureView.layer.cornerRadius = 15

@@ -41,7 +41,8 @@ final class DetailedWeatherViewController: BaseViewController {
     private func setupCloseButton() {
     
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemSymbol: .closeButton)?.withTintColor(.gray, renderingMode: .alwaysOriginal),
+            image: UIImage(systemSymbol: .closeButton)?
+                .withTintColor(.gray, renderingMode: .alwaysOriginal),
             style: .plain,
             target: self,
             action: #selector(closeAction))
