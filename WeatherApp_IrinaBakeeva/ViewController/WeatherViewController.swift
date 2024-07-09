@@ -41,6 +41,7 @@ final class WeatherViewController: UIViewController {
 //        setupReportWeatherView()
         setupButtonShowDetails()
         
+        
     }
     
     private func setupBackgroundImage() {
@@ -63,6 +64,15 @@ final class WeatherViewController: UIViewController {
             make.horizontalEdges.equalToSuperview()
             make.height.equalTo(containerView.snp.width).multipliedBy(0.7)
         }
+    }
+    
+    private func presentCityWeather(with data: MOCKData?, animated: Bool = true) {
+        let viewController = CityWeatherViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        if let data {
+            viewController.setup(data)
+        }
+        present(viewController, animated: animated)
     }
     
     private func setupTitleView() {
@@ -189,6 +199,9 @@ final class WeatherViewController: UIViewController {
     }
     */
 }
-#Preview {
-    UINavigationController(rootViewController: WeatherViewController())
+
+extension WeatherViewController: UISearchBarDelegate {
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        print("searchBarBookmarkButtonClicked")
+    }
 }

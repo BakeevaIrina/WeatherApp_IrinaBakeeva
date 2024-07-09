@@ -26,6 +26,9 @@ final class CityWeatherViewController: UIViewController {
     private let showInfoButton = UIButton()
     private let searchResultsController = SearchResultViewController()
     
+    private let titleContainer = UIView()
+    private let titleView = TitleView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundCity
@@ -76,7 +79,25 @@ final class CityWeatherViewController: UIViewController {
         searchController.searchBar.setImage(UIImage(systemSymbol: .listBullet), for: .bookmark, state: .normal)
         searchController.searchBar.showsBookmarkButton = true
     }
-    
+//    MARK: - add
+    private func setupTitleContainer() {
+        view.addSubview(titleContainer)
+
+        titleContainer.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(titleContainer.snp.width).multipliedBy(0.7)
+        }
+    }
+
+    private func setupTitleView() {
+        titleContainer.addSubview(titleView)
+
+        titleView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(20)
+        }
+    }
     private func setupPlaceView() {
         view.addSubview(placeView)
         
@@ -119,6 +140,10 @@ final class CityWeatherViewController: UIViewController {
                 self.present(navigationController, animated: true)
         }, for: .touchUpInside)
     }
+    
+    func setup(_ data: MOCKData) {
+        titleView.setup(data.titleData)
+    }
 }
 
 extension SearchResultViewController: UISearchResultsUpdating {
@@ -128,6 +153,8 @@ extension SearchResultViewController: UISearchResultsUpdating {
         view.backgroundColor = .black.withAlphaComponent(text.isEmpty ? 0.7 : 1)
     }
 }
+
+
 
 extension CityWeatherViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
