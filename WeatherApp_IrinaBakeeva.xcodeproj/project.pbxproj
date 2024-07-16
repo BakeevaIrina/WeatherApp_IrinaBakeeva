@@ -138,9 +138,9 @@
 				0E69CA5C2BF5BCFA00592F70 /* TitleView.swift */,
 				0E69CA802BF8073900592F70 /* CurrentWeatherView.swift */,
 				0E69CA842BFB343000592F70 /* MediumTempDayView.swift */,
+				0EB12E3E2C0C46DE00828401 /* PlaceView.swift */,
 				0EAEB18D2C05BBAD000B3869 /* ReportWeatherView.swift */,
 				0E69CA5E2BF6D79000592F70 /* BottomView.swift */,
-				0EB12E3E2C0C46DE00828401 /* PlaceView.swift */,
 				0EB12EAA2C1EB02500828401 /* UnitSelectionView.swift */,
 				0EDD5EFE2C2EA180003EE9A3 /* SearchResultViewController.swift */,
 			);

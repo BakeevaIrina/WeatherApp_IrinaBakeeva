@@ -8,107 +8,134 @@
 import UIKit
 import SnapKit
 
-final class PlaceView: UIView{
-    
-    private let placeView = UIView()
+extension PlaceView {
+    struct InputModel {
+        let title: String
+        let subtitle: String?
+        let currentTemp: Int
+        let description: String
+        let minTemp: Int
+        let maxTemp: Int
+    }
+}
+
+final class PlaceView: BaseView {
     private let backgroundImage = UIImageView()
     private let labelPlace = UILabel()
-    private let labelCity = UILabel()
+    private let subtitleLabel = UILabel()
     private let labelWeather = UILabel()
     private let currentTemp = UILabel()
+    private let limitTemp = UILabel()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var tapAction: (() -> Void)?
+    
+    override func setup() {
+        super.setup()
         
-        setupPlaceView()
+        snp.makeConstraints { make in
+            make.height.equalTo(125)
+        }
+        
         setupBackgroundImage()
+        setupCurrentTemp()
+        setupLimitTemp()
+        setupLabelPlace()
+        setupSubtitleLabel()
+        setupLabelWeather()
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureAction)))
+    }
+    @IBAction private func tapGestureAction() { // TODO: - Remove after implement collection
+        tapAction?()
     }
     
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private enum Constants {
-        static let placeText = "Current place"
-        static let cityName = "Los Angeles"
-        static let weatherText = "Clear sky"
-        static let currentTemp = "30°"
-    }
-    
-    private func setupPlaceView() {
-        addSubview(placeView)
-        
-        placeView.largeContentImage = UIImage(asset: .backgroundView)
-        placeView.backgroundColor = .systemGray3
-        placeView.layer.cornerRadius = 10
-        placeView.clipsToBounds = true
-        
-        placeView.snp.makeConstraints { make in
-            //make.center.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(130)
-        }
-        
-        backgroundImage.addSubview(labelPlace)
-        
-        labelPlace.text = Constants.placeText
-        labelPlace.textColor = .white
-        labelPlace.font = UIFont.Thonburi.u25
-        
-        labelPlace.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.leading.equalToSuperview().offset(16)
-        }
-        
-        backgroundImage.addSubview(labelCity)
-        
-        labelCity.text = Constants.cityName
-        labelCity.textColor = .white
-        labelCity.font = UIFont.Thonburi.u16
-        
-        labelCity.snp.makeConstraints { make in
-            make.top.equalTo(labelPlace.snp.bottom).offset(5)
-            make.leading.equalToSuperview().offset(16)
-        }
-        
-        backgroundImage.addSubview(labelWeather)
-        
-        labelWeather.text = Constants.weatherText
-        labelWeather.textColor = .white
-        labelWeather.font = UIFont.Thonburi.u16
-        
-        labelWeather.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-10)
-            make.leading.equalToSuperview().offset(16)
-        }
-        
-        backgroundImage.addSubview(currentTemp)
-        
-        currentTemp.text = Constants.currentTemp
-        currentTemp.textColor = .white
-        currentTemp.font = UIFont.Thonburi.u50
-        
-        currentTemp.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            make.trailing.equalToSuperview().offset(-16)
-        }
-        
-        
+    func setup(_ model: InputModel) {
+        labelPlace.text = model.title
+        subtitleLabel.text = model.subtitle
+        subtitleLabel.isHidden = model.subtitle == nil
+        currentTemp.text = "\(model.currentTemp)"
+        labelWeather.text = model.description
+        limitTemp.text = "Max: \(model.maxTemp)º, min: \(model.minTemp)º"
+
     }
     
     private func setupBackgroundImage() {
-        placeView.addSubview(backgroundImage)
+        addSubview(backgroundImage)
+        
         backgroundImage.image = UIImage(asset: .backgroundView)
+        backgroundImage.layer.cornerRadius = 10
         backgroundImage.contentMode = .scaleToFill
+        backgroundImage.clipsToBounds = true
         
         backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
     }
+    
+    private func setupCurrentTemp() {
+        addSubview(currentTemp)
+    
+        currentTemp.textColor = .white
+        currentTemp.font = UIFont.Thonburi.u50
+        currentTemp.textAlignment = .right
+        
+        currentTemp.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(6)
+            make.trailing.equalToSuperview().inset(16)
+        }
+    }
+    
+    private func setupLimitTemp() {
+        addSubview(limitTemp)
+        
+        limitTemp.font = UIFont.Thonburi.u16
+        limitTemp.textColor = .white
+        limitTemp.textAlignment = .right
+        
+        limitTemp.snp.makeConstraints { make in
+            make.bottom.trailing.equalToSuperview().inset(16)
+        }
+    }
+    
+    private func setupLabelPlace() {
+        addSubview(labelPlace)
+        
+        labelPlace.textColor = .white
+        labelPlace.font = UIFont.Thonburi.u25
+        
+        labelPlace.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview().inset(16)
+            make.trailing.equalTo(currentTemp.snp.leading).offset(-20)
+        }
+    }
+    
+    private func setupSubtitleLabel() {
+        addSubview(subtitleLabel)
+        
+        subtitleLabel.textColor = .white
+        subtitleLabel.font = UIFont.Thonburi.u16
+        
+        subtitleLabel.snp.makeConstraints { make in
+            make.top.equalTo(labelPlace.snp.bottom).offset(5)
+            make.leading.equalToSuperview().inset(16)
+        }
+    }
+    
+    private func setupLabelWeather() {
+        addSubview(labelWeather)
+        
+        labelWeather.textColor = .white
+        labelWeather.font = UIFont.Thonburi.u16
+        labelWeather.numberOfLines = 2
+        
+        labelWeather.snp.makeConstraints { make in
+            make.bottom.leading.equalToSuperview().inset(16)
+            make.trailing.equalTo(limitTemp.snp.leading).offset(-20)
+        }
+    }
+   
 }
+    
 
-#Preview {
-    PlaceView()
-}
+

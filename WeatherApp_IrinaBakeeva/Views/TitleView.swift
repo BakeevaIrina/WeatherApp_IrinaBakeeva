@@ -19,7 +19,7 @@ extension TitleView {
     }
 }
 
-final class TitleView: UIView {
+final class TitleView: BaseView {
     private let stackView = UIStackView()
     private let labelPlace = UILabel()
     private let labelCityName = UILabel()
@@ -27,10 +27,9 @@ final class TitleView: UIView {
     private let labelWeather = UILabel()
     private let labelMaxMin = UILabel()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func setup() {
+        super.setup()
         
-//        setupTitleView()
         setupStackView()
         setupTitleLabel()
         setupLabelCityName()
@@ -39,29 +38,14 @@ final class TitleView: UIView {
         setupTemperatureLimit()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     func setup(_ model: InputModel) {
         labelPlace.text = model.title
         labelCityName.text = model.subtitle
         labelCityName.isHidden = model.subtitle == nil
-        currentTemp.text = "\(model.currentTemp)º"
+        currentTemp.text = "\(model.currentTemp)"
         labelWeather.text = model.description
         labelMaxMin.text = "Max: \(model.maxTemp)º, min: \(model.minTemp)º"
-         
-        
-        
     }
-    
-//    private enum Constants {
-//        static let titleText = "Current place"
-//        static let cityNameText = "LOS ANGELES"
-//        static let tempText = "30°"
-//        static let weatherText = "Clear sky"
-//        static let maxMinText = "Max.: 31°, min.: 21°"
-//    }
     
     private func setupStackView() {
         addSubview(stackView)
@@ -100,6 +84,7 @@ final class TitleView: UIView {
         labelWeather.font = UIFont.SystemFont.u16
         labelWeather.textAlignment = .center
         labelWeather.textColor = .white
+        labelPlace.numberOfLines = 2
     }
     
     private func setupTemperatureLimit() {
@@ -108,58 +93,4 @@ final class TitleView: UIView {
         labelMaxMin.textAlignment = .center
         labelMaxMin.textColor = .white
     }
-    
-//    private func setupTitleView() {
-//        
-//        addSubview(labelPlace)
-//        labelPlace.text = Constants.titleText
-//        labelPlace.textColor = .white
-//        labelPlace.font = UIFont.SystemFont.u40
-//        
-//        labelPlace.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            make.top.equalTo(24)
-//            
-//            addSubview(lableCityName)
-//            lableCityName.text = Constants.cityNameText
-//            lableCityName.textColor = .white
-//            lableCityName.font = UIFont.Thonburi.u16
-//            
-//            lableCityName.snp.makeConstraints { make in
-//                make.centerX.equalTo(labelPlace)
-//                make.top.equalTo(labelPlace).inset(50)
-//            }
-            
-//            addSubview(currentTemp)
-//            currentTemp.text = Constants.tempText
-//            currentTemp.textColor = .white
-//            currentTemp.font = UIFont.SystemFont.u100
-//            
-//            currentTemp.snp.makeConstraints { make in
-//                make.leading.equalTo(80)
-//                make.top.equalTo(lableCityName).inset(16)
-//            }
-//            
-//            addSubview(labelWeather)
-//            labelWeather.text = Constants.weatherText
-//            labelWeather.textColor = .white
-//            labelWeather.font = UIFont.SystemFont.u16
-//            
-//            labelWeather.snp.makeConstraints { make in
-//                make.centerX.equalTo(lableCityName)
-//                make.top.equalTo(currentTemp).inset(110)
-//            }
-            
-//            addSubview(labelMaxMin)
-//            labelMaxMin.text = Constants.maxMinText
-//            labelMaxMin.textColor = .white
-//            labelMaxMin.font = UIFont.SystemFont.u16
-//            
-//            labelMaxMin.snp.makeConstraints { make in
-//                make.centerX.equalTo(labelWeather)
-//                make.top.equalTo(labelWeather).inset(20)
-//            }
-            
-//        }
-//    }
 }
