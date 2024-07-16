@@ -10,7 +10,7 @@ import SnapKit
 import SafariServices
 import WebKit
 
-final class CityWeatherViewController: UIViewController {
+final class CityWeatherViewController: BaseViewController {
     private enum Constants {
         static let titleText = "Weather"
         static let textPlaceholder = " Search city or airport"
@@ -20,22 +20,25 @@ final class CityWeatherViewController: UIViewController {
     
     private let titleLabel = UILabel()
     private let textField = UISearchTextField()
-    private let placeView = PlaceView()
+    private let placeStackView = UIStackView()
     private let unitSelectionView = UnitSelectionView()
     private let showHideButton = UIButton()
     private let showInfoButton = UIButton()
     private let searchResultsController = SearchResultViewController()
+    
+    private let titleContainer = UIView()
+    private let titleView = TitleView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundCity
     
         setupNavigationBar()
-        setupPlaceView()
         setupUnitSelectionView()
         setupShowInfoButton()
         setupSearchController()
-        
+        setupPlaceStackView()
+        presentCityWeather(with: MOCKData.data.first, animated: true)
     }
     
     private func setupNavigationBar() {
@@ -76,16 +79,41 @@ final class CityWeatherViewController: UIViewController {
         searchController.searchBar.setImage(UIImage(systemSymbol: .listBullet), for: .bookmark, state: .normal)
         searchController.searchBar.showsBookmarkButton = true
     }
-    
-    private func setupPlaceView() {
-        view.addSubview(placeView)
+
+    private func setupPlaceStackView() {
+        view.addSubview(placeStackView)
         
-        placeView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.horizontalEdges.equalToSuperview()
+        placeStackView.axis = .vertical
+        placeStackView.spacing = 10
+        
+        MOCKData.data.forEach { data in
+            let placeView = PlaceView()
+            placeView.setup(PlaceView.InputModel(
+                title: data.titleData.title,
+                subtitle: data.titleData.subtitle,
+                currentTemp: data.titleData.currentTemp,
+                description: data.titleData.description,
+                minTemp: data.titleData.minTemp,
+                maxTemp: data.titleData.maxTemp))
+            
+            placeView.tapAction = { [weak self] in self?.presentCityWeather(with: data)}
+            placeStackView.addArrangedSubview(placeView)
         }
         
+        placeStackView.snp.makeConstraints { make in
+            make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+        }
     }
+
+//    private func setupPlaceView() {
+//        view.addSubview(placeView)
+//        
+//        placeView.snp.makeConstraints { make in
+//            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
+//            make.horizontalEdges.equalToSuperview()
+//        }
+//        
+//    }
     
     private func setupUnitSelectionView() {
         view.addSubview(unitSelectionView)
@@ -119,6 +147,19 @@ final class CityWeatherViewController: UIViewController {
                 self.present(navigationController, animated: true)
         }, for: .touchUpInside)
     }
+    
+    private func presentCityWeather(with data: MOCKData?, animated: Bool = true ) {
+        let weatherViewController = WeatherViewController()
+        weatherViewController.modalPresentationStyle = .fullScreen
+        if let data {
+            weatherViewController.setup(data)
+        }
+        present(weatherViewController, animated: animated)
+    }
+    
+    @IBAction private func rightBarButtonAction() {
+        unitSelectionView.isHidden = true
+    }
 }
 
 extension SearchResultViewController: UISearchResultsUpdating {
@@ -128,6 +169,8 @@ extension SearchResultViewController: UISearchResultsUpdating {
         view.backgroundColor = .black.withAlphaComponent(text.isEmpty ? 0.7 : 1)
     }
 }
+
+
 
 extension CityWeatherViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

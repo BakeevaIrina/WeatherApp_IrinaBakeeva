@@ -8,29 +8,25 @@
 import Foundation
 import SnapKit
 
-class BottomView: UIView {
+class BottomView: BaseView {
     private let bottomView = UIView()
     private let buttonList = UIButton()
     private let buttonMap = UIButton()
     
     var buttonAction: (() -> Void)?
     
-    override init (frame: CGRect) {
-        super.init(frame: frame)
+    override func setup() {
+        super.setup()
         
-        backgroundColor = UIColor(named: "bottomView")
+        backgroundColor = .bottomView
         
         setupBottomView()
         setupButtonList()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func setupBottomView() {
         addSubview(bottomView)
-        bottomView.backgroundColor = UIColor(named: "bottomView")
+        bottomView.backgroundColor = .bottomView
         bringSubviewToFront(bottomView)
         
         bottomView.snp.makeConstraints { make in

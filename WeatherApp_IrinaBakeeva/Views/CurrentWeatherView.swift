@@ -8,42 +8,36 @@
 import UIKit
 import SnapKit
 
-final class CurrentWeatherView: UIView {
-    struct CurrentTemperature{
-        let labelTime: String
-        let iconImage: UIImage?
-        let labelTemperature: Int
+extension CurrentWeatherView {
+    struct InputModel{
+        let time: String
+        let icon: UIImage?
+        let temp: Int
     }
-    
+}
+
+final class CurrentWeatherView: BaseView {
     private let stackView = UIStackView()
     private let scrollView = UIScrollView()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func setup(){
+        super.setup()
         
         setupScrollView()
         setupStackView()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setup (_ models: [CurrentTemperature]) {
+    func setup (_ models: [InputModel]) {
         //перечисляем все модели с их индексами в массиве
         models.enumerated().forEach { index, model  in
-            //создаем новое представление TimeWeaterView
             let view = TimeWeatherView()
-            //настраиваем новое представление с использование модели
             view.setup(model)
-            //добавляем новое представление в stackView
             stackView.addArrangedSubview(view)
             //устанавливаем пользовательский доступ только после первого представления
             if index == 0 {
                 stackView.setCustomSpacing(35, after: view)
             }
         }
-        
     }
     
     private func setupScrollView() {
@@ -86,13 +80,13 @@ extension CurrentWeatherView {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func setup(_ model: CurrentTemperature) {
+        func setup(_ model: InputModel) {
             // Устанавливаем текст метки времени на значение, переданное из модели
-            hourLabel.text = model.labelTime
+            hourLabel.text = model.time
             //Устанавливаем изображение в предоставлении иконки из модели
-            iconView.image = model.iconImage
+            iconView.image = model.icon
             //Устанавливаем текст метки температуры на значение из модели
-            tempLabel.text = "\(model.labelTemperature)º"
+            tempLabel.text = "\(model.temp)º"
         }
         
         private func setupStackView() {

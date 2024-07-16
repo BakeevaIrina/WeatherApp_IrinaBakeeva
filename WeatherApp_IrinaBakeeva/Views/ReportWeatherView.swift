@@ -90,7 +90,7 @@ final class ReportWeatherView: UIView {
         }
     }
     
-    final class TemperatureView: UIView {
+    final class TemperatureView: BaseView {
         private let dayLabel = UILabel()
         private let iconImage = UIImageView()
         private let minTempLabel = UILabel()
@@ -114,7 +114,6 @@ final class ReportWeatherView: UIView {
             dayLabel.textColor = .white
             dayLabel.font = UIFont.SystemFont.u20
             
-//            MARK: как принимать разный icon?
             iconImage.image = UIImage(systemSymbol: .sunMax)
             iconImage.tintColor = .darkYellow
             iconImage.contentMode = .scaleAspectFit
