@@ -113,7 +113,6 @@
 				0EAEB1902C0708CA000B3869 /* Views */,
 				0E8397082BF090220091A08A /* AppDelegate.swift */,
 				0E83970A2BF090220091A08A /* SceneDelegate.swift */,
-				0E8397112BF090230091A08A /* Assets.xcassets */,
 				0EAEB18F2C07089D000B3869 /* ViewController */,
 				0E8397132BF090230091A08A /* LaunchScreen.storyboard */,
 				0E8397162BF090230091A08A /* Info.plist */,
@@ -161,6 +160,7 @@
 			children = (
 				0EB12E662C17B79500828401 /* UIFont+Typography.swift */,
 				0EB12E682C17BED800828401 /* UIImage+Assets.swift */,
+				0E8397112BF090230091A08A /* Assets.xcassets */,
 			);
 			path = Extension;
 			sourceTree = "<group>";

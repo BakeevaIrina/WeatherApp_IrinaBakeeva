@@ -35,7 +35,7 @@ final class CityWeatherViewController: BaseViewController {
     
         setupNavigationBar()
         setupUnitSelectionView()
-        setupShowInfoButton()
+//        setupShowInfoButton()
         setupSearchController()
         setupPlaceStackView()
         presentCityWeather(with: MOCKData.data.first, animated: true)
@@ -116,38 +116,38 @@ final class CityWeatherViewController: BaseViewController {
 //    }
     
     private func setupUnitSelectionView() {
-        view.addSubview(unitSelectionView)
-        
-        unitSelectionView.backgroundColor = .gray
+        navigationController?.view.addSubview(unitSelectionView)
         unitSelectionView.isHidden = true
+        unitSelectionView.delegate = self
         
         unitSelectionView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(100)
+            make.top.equalToSuperview().offset(90)
+            make.trailing.equalToSuperview().inset(16)
         }
     }
     
-    private func setupShowInfoButton() {
-        view.addSubview(showInfoButton)
-        
-        showInfoButton.backgroundColor = .systemBlue
-        showInfoButton.layer.cornerRadius = 5
-        showInfoButton.setTitle(Constants.titleInfo, for: .normal)
-        
-        showInfoButton.snp.makeConstraints { make in
-            make.top.equalTo(unitSelectionView.snp.bottom).offset(16)
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.height.equalTo(50)
-        }
-        showInfoButton.addAction(UIAction { _ in
-            guard let url = URL(string: Constants.link) else { return }
-                let webViewController = WebViewController()
-            let navigationController = UINavigationController(rootViewController: webViewController)
-                webViewController.open(url)
-                self.present(navigationController, animated: true)
-        }, for: .touchUpInside)
-    }
-    
+//    private func setupShowInfoButton() {
+//        view.addSubview(showInfoButton)
+//        
+//        showInfoButton.backgroundColor = .systemBlue
+//        showInfoButton.layer.cornerRadius = 5
+//        showInfoButton.setTitle(Constants.titleInfo, for: .normal)
+//        
+//        showInfoButton.snp.makeConstraints { make in
+//            make.bottom.equalToSuperview()
+////            make.top.equalTo(unitSelectionView.snp.bottom).offset(16)
+//            make.horizontalEdges.equalToSuperview().inset(16)
+//            make.height.equalTo(50)
+//        }
+//        showInfoButton.addAction(UIAction { _ in
+//            guard let url = URL(string: Constants.link) else { return }
+//                let webViewController = WebViewController()
+//            let navigationController = UINavigationController(rootViewController: webViewController)
+//                webViewController.open(url)
+//                self.present(navigationController, animated: true)
+//        }, for: .touchUpInside)
+//    }
+//    
     private func presentCityWeather(with data: MOCKData?, animated: Bool = true ) {
         let weatherViewController = WeatherViewController()
         weatherViewController.modalPresentationStyle = .fullScreen
@@ -180,4 +180,23 @@ extension CityWeatherViewController: UISearchBarDelegate {
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         
     }
+}
+
+extension CityWeatherViewController: UnitSelectionViewDelegate {
+    func printUnit(_ unit: TempUnit) {
+        unitSelectionView.isHidden = true
+        print(unit.unitLabel)
+    }
+    
+    func showUnitInfo() {
+        unitSelectionView.isHidden = true
+        
+        guard let url = URL(string: Constants.link) else { return }
+            let webViewController = WebViewController()
+        let navigationController = UINavigationController(rootViewController: webViewController)
+            webViewController.open(url)
+            self.present(navigationController, animated: true)
+    }
+    
+    
 }
